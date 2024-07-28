@@ -26,7 +26,7 @@ for file in $files; do
   filename=$(basename "$file")
   
   variable=$(echo "$filename" | cut -d'_' -f1)
-  date=$(echo "$filename" | cut -d'_' -f2 )
+  date=$(echo "$filename" | cut -d'_' -f2  | cut -d'_' -f3 )
 
   
   # Check if filename matches the pattern
