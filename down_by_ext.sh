@@ -40,7 +40,7 @@ fi
     export PGPASSWORD="$dbpassword"
     ## delete older of same value
      psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
-      delete from raster_data where load_datetime<=now() and filename like '$variable%';
+      delete from raster_data where load_datetime<=now() and variable =   '$variable';
     "
 
 # Download each file
