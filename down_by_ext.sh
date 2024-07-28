@@ -34,6 +34,7 @@ for file in $files; do
   dbname="rasters"
 dbuser="rasters"
 dbport="11014"
+dbhost="localhost"
 dbpassword="rastersUniversal$%1"
 srid=4326
 
