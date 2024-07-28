@@ -58,7 +58,8 @@ for file in $files; do
     wget -q "$url$file" -P "$download_dir"
     echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
 
-    
+    # Export the password to avoid password prompt
+    export PGPASSWORD="$dbpassword"
 
 # Insert the raster into the database with additional columns
 ##set -x
