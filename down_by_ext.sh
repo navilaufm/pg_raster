@@ -28,8 +28,8 @@ for file in $files; do
   variable=$(echo "$filename" | cut -d'_' -f1)
 
     # Extract date and time
-    date_time="${filename#*_}"
-    date_time="${date_time%.tif}"
+    datetime="${filename#*_}"
+    datetime="${date_time%.tif}"
 
     date=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
 
