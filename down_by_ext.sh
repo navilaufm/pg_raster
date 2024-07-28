@@ -55,7 +55,7 @@ raster2pgsql -s 4326 -a "$download_dir/$filename" raster_data | psql -h "$dbhost
       UPDATE raster_data
       SET filename = '$filename',
           variable = '$variable',
-          time = '$date_formatted'
+          date = '$date_formatted'
       WHERE filename IS NULL;
     "
 
