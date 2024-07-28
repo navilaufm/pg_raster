@@ -11,7 +11,7 @@ url="$1"
 extension="$2"
 pattern="$3"
 download_dir="$4"
-$variable="$5"
+variable="$5"
 
 # Create download directory if it doesn't exist
 mkdir -p "$download_dir"
