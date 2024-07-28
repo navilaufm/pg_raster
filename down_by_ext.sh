@@ -25,12 +25,16 @@ files=$(echo "$html" | grep -o 'href="[^"]*'"$extension"'"' | sed 's/href="//' |
 for file in $files; do
   filename=$(basename "$file")
   
+  variable=$(echo "$filename" | cut -d'_' -f1)
+  date=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
+
+  
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
     wget -q "$url$file" -P "$download_dir"
-    echo "Downloaded: $download_dir/$filename"
+    echo "Downloaded: $download_dir/$filename  Variable: $variable Date: $date"
   else
-    echo "Skipping: $filename (does not match pattern)"
+    ##echo "Skipping: $filename (does not match pattern)"
   fi
 done
 
