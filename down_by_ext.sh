@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check for required arguments
-if [ $# -ne 4 ]; then
+if [ $# -ne 5 ]; then
   echo "Usage: $0 <url> <extension> <pattern> <download_dir> <variable_name>"
   exit 1
 fi
