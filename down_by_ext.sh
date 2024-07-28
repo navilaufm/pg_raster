@@ -30,7 +30,7 @@ for file in $files; do
   hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
   
   #postgis 
-  database_name="your_database_name"
+  database_name="rasters"
   srid=4326
 
   # Check if filename matches the pattern
