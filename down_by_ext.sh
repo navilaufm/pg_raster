@@ -2,7 +2,7 @@
 
 # Check for required arguments
 if [ $# -ne 4 ]; then
-  echo "Usage: $0 <url> <extension> <pattern> <download_dir>"
+  echo "Usage: $0 <url> <extension> <pattern> <download_dir> <variable_name>"
   exit 1
 fi
 
@@ -11,6 +11,7 @@ url="$1"
 extension="$2"
 pattern="$3"
 download_dir="$4"
+$variable="$5"
 
 # Create download directory if it doesn't exist
 mkdir -p "$download_dir"
@@ -46,7 +47,7 @@ fi
 for file in $files; do
   filename=$(basename "$file")
   
-  variable=$(echo "$filename" | cut -d'_' -f1)
+  ## ya no del nombre. :: variable=$(echo "$filename" | cut -d'_' -f1)
   fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
   hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
   date_formatted="$fecha $hora"
