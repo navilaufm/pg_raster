@@ -8,29 +8,6 @@ fi
 
 # Assign arguments to variables
 url="$1"
-pattern="$2"
-download_dir="$3"
-
-# Create download directory if it doesn't exist
-mkdir -p "$download_dir"
-
-# Fetch HTML content
-html=$(curl -s "$url")
-
-# Extract file URLs matching the pattern
-files=$(echo "$html" | grep -oE "href=\".*/$pattern\"" | cut -d'"' -f2)
-echo $files
-# Download each file
-for file in $files; do
-  curl -s "$url$file" -o "$download_dir/$file"
-done
-
-echo "Download completed."
-exit (0)
-#####################
-
-# Assign arguments to variables
-url="$1"
 extension="$2"
 download_dir="$3"
 
