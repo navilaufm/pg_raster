@@ -47,19 +47,12 @@ export PGPASSWORD="$dbpassword"
 
 # Insert the raster into the database with additional columns
 set -x
-raster2pgsql -s 4326 -I -C -M -F "$download_dir/$filename" raster_data | psql -h localhost -U "$dbuser" -d "$dbname" -p "$dbport" -c "
-WITH new_raster AS (
-  INSERT INTO raster_data (rast)
-  SELECT ST_AddBand(rast, 1, '32BF')
-  FROM raster_data
-  WHERE false
-  RETURNING rid
-)
-INSERT INTO raster_data (rid, rast, filename, variable, date)
-SELECT new_raster.rid, raster_data.rast, '$filename', '$variable', '$date'
-FROM raster_data, new_raster
-WHERE raster_data.rid = new_raster.rid;
-"
+raster2pgsql -s 4326 -F "$file" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
+    INSERT INTO raster_data (rast, filename, variable, time)
+    SELECT rast, '$filename', '$variable', '$date'
+    FROM raster_data
+    WHERE false;
+    "
 
 # Unset the password environment variable for security
 unset PGPASSWORD
