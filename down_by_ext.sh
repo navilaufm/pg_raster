@@ -51,7 +51,7 @@ for file in $files; do
     "
 
 # Insert the raster into the database with additional columns
-set -x
+##set -x
 raster2pgsql -s 4326 -a "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport"
 
      ## Update additional columns
@@ -67,10 +67,10 @@ raster2pgsql -s 4326 -a "$download_dir/$filename" raster_data | psql -h "$dbhost
 unset PGPASSWORD
 
 echo "Insert completed."
-set +x
+##set +x
     
   else
-    echo "Skipping: $filename (does not match pattern)"
+    echo "."
   fi
 done
 
