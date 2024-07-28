@@ -49,7 +49,7 @@ export PGPASSWORD="$dbpassword"
 # Insert the raster into the database with additional columns
 set -x
 raster2pgsql -s 4326 -F "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
-    INSERT INTO raster_data (rast, filename, variable, time)
+    INSERT INTO raster_data (rast, filename, variable, dated)
     SELECT rast, '$filename', '$variable', '$date'
     FROM raster_data
     WHERE false;
