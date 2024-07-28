@@ -21,16 +21,13 @@ html=$(curl -s "$url")
 # Extract file URLs matching the extension
 files=$(echo "$html" | grep -o 'href="[^"]*'"$extension"'"' | sed 's/href="//' | sed 's/"$//')
 
-# Download each file
-for file in $files; do
-  filename=$(basename "$file")
-  
-  variable=$(echo "$filename" | cut -d'_' -f1)
-  fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
-  hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
-  date_formatted="$fecha $hora"
-  
-  #postgis 
+# Check if any files match the pattern
+if [ -z "$files" ]; then
+  echo "No files found matching the pattern: $pattern.  Exiting..."
+  exit 0
+fi
+
+ #postgis 
     dbname="rasters"
     dbuser="rasters"
     dbport="11014"
@@ -44,6 +41,17 @@ for file in $files; do
      psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
       delete from raster_data where load_datetime<=now() and filename like '$variable%';
     "
+
+# Download each file
+for file in $files; do
+  filename=$(basename "$file")
+  
+  variable=$(echo "$filename" | cut -d'_' -f1)
+  fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
+  hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
+  date_formatted="$fecha $hora"
+  
+ 
 
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
