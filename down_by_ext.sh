@@ -29,11 +29,18 @@ for file in $files; do
   fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
   hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
   
-  
+  #postgis 
+  database_name="your_database_name"
+  srid=4326
+
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
     wget -q "$url$file" -P "$download_dir"
     echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
+    set -x
+    raster2pgsql -s "$srid" -d "$database_name" -t public.raster_data -I -C -a -F -W "filename='$filename';variable='$variable';date='$date'" "$file" | psql -h "$host" -U "$user" -d "$database_name" -p "$port"
+    set +x
+    
   else
     echo "Skipping: $filename (does not match pattern)"
   fi
