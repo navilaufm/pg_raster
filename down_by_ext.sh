@@ -46,7 +46,7 @@ export PGPASSWORD="$dbpassword"
 
 # Insert the raster into the database with additional columns
 set -x
-raster2pgsql -s 4326 -I -C -M -F "$file" raster_data | psql -h localhost -U "$dbuser" -d "$dbname" -p "$dbport" -c "
+raster2pgsql -s 4326 -I -C -M -F "$download_dir/$filename" raster_data | psql -h localhost -U "$dbuser" -d "$dbname" -p "$dbport" -c "
 WITH new_raster AS (
   INSERT INTO raster_data (rast)
   SELECT ST_AddBand(rast, 1, '32BF')
