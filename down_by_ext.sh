@@ -52,12 +52,12 @@ WITH new_raster AS (
   SELECT ST_AddBand(rast, 1, '32BF')
   FROM raster_data
   WHERE false
-  RETURNING id
+  RETURNING rid
 )
-INSERT INTO raster_data (id, rast, filename, variable, time)
-SELECT new_raster.id, raster_data.rast, '$filename', '$variable', '$date'
+INSERT INTO raster_data (rid, rast, filename, variable, time)
+SELECT new_raster.rid, raster_data.rast, '$filename', '$variable', '$date'
 FROM raster_data, new_raster
-WHERE raster_data.id = new_raster.id;
+WHERE raster_data.rid = new_raster.rid;
 "
 
 # Unset the password environment variable for security
