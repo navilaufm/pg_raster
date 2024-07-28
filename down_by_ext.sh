@@ -34,7 +34,7 @@ for file in $files; do
     wget -q "$url$file" -P "$download_dir"
     echo "Downloaded: $download_dir/$filename  Variable: $variable Date: $date"
   else
-    ##echo "Skipping: $filename (does not match pattern)"
+    echo "Skipping: $filename (does not match pattern)"
   fi
 done
 
