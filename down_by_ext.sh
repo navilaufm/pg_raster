@@ -30,16 +30,41 @@ for file in $files; do
   hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
   
   #postgis 
-  database_name="rasters"
+  dbname="rasters"
+dbuser="rasters"
+dbport="11014"
+dbpassword="rastersUniversal$%1"
   srid=4326
 
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
     wget -q "$url$file" -P "$download_dir"
     echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
-    set -x
-    raster2pgsql -s "$srid" -d "$database_name" -t public.raster_data -I -C -a -F -W "filename='$filename';variable='$variable';date='$date'" "$file" | psql -h "$host" -U "$user" -d "$database_name" -p "$port"
-    set +x
+
+    # Export the password to avoid password prompt
+export PGPASSWORD="$dbpassword"
+
+# Insert the raster into the database with additional columns
+set -x
+raster2pgsql -s 4326 -I -C -M -F "$file" raster_data | psql -h localhost -U "$dbuser" -d "$dbname" -p "$dbport" -c "
+WITH new_raster AS (
+  INSERT INTO raster_data (rast)
+  SELECT ST_AddBand(rast, 1, '32BF')
+  FROM raster_data
+  WHERE false
+  RETURNING id
+)
+INSERT INTO raster_data (id, rast, filename, variable, time)
+SELECT new_raster.id, raster_data.rast, '$filename', '$variable', '$date'
+FROM raster_data, new_raster
+WHERE raster_data.id = new_raster.id;
+"
+
+# Unset the password environment variable for security
+unset PGPASSWORD
+
+echo "Insert completed."
+set +x
     
   else
     echo "Skipping: $filename (does not match pattern)"
