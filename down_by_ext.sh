@@ -28,15 +28,15 @@ for file in $files; do
   variable=$(echo "$filename" | cut -d'_' -f1)
   fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
   hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
-  date="$fecha $hora"
+  date_formatted="$fecha $hora"
   
   #postgis 
-  dbname="rasters"
-dbuser="rasters"
-dbport="11014"
-dbhost="localhost"
-dbpassword="rastersUniversal$%1"
-srid=4326
+    dbname="rasters"
+    dbuser="rasters"
+    dbport="11014"
+    dbhost="localhost"
+    dbpassword="rastersUniversal$%1"
+    srid=4326
 
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
@@ -44,15 +44,19 @@ srid=4326
     echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
 
     # Export the password to avoid password prompt
-export PGPASSWORD="$dbpassword"
+    export PGPASSWORD="$dbpassword"
 
 # Insert the raster into the database with additional columns
 set -x
-raster2pgsql -s 4326 -F "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
-    INSERT INTO raster_data (rast, filename, variable, date)
-    SELECT rast, '$filename', '$variable', '$date'
-    FROM raster_data
-    WHERE false;
+raster2pgsql -s 4326 -a "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport"
+
+     ## Update additional columns
+    psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
+      UPDATE raster_data
+      SET filename = '$filename',
+          variable = '$variable',
+          time = '$date_formatted'
+      WHERE filename IS NULL;
     "
 
 # Unset the password environment variable for security
