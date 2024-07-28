@@ -26,9 +26,9 @@ for file in $files; do
   filename=$(basename "$file")
   
   variable=$(echo "$filename" | cut -d'_' -f1)
-  fecha=$(echo "$filename" | cut -d'_' -f2)
-  hora=$(echo "$filename" | cut -d'_' -f3)
-
+  fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
+  hora=$(echo "$filename" | cut -d'_' -f3 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
+  
   
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
