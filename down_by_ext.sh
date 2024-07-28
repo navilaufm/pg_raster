@@ -28,13 +28,14 @@ for file in $files; do
   variable=$(echo "$filename" | cut -d'_' -f1)
   fecha=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
   hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
+  date="$fecha $hora"
   
   #postgis 
   dbname="rasters"
 dbuser="rasters"
 dbport="11014"
 dbpassword="rastersUniversal$%1"
-  srid=4326
+srid=4326
 
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
@@ -54,7 +55,7 @@ WITH new_raster AS (
   WHERE false
   RETURNING rid
 )
-INSERT INTO raster_data (rid, rast, filename, variable, time)
+INSERT INTO raster_data (rid, rast, filename, variable, date)
 SELECT new_raster.rid, raster_data.rast, '$filename', '$variable', '$date'
 FROM raster_data, new_raster
 WHERE raster_data.rid = new_raster.rid;
