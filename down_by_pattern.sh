@@ -15,9 +15,11 @@ download_dir="$3"
 mkdir -p "$download_dir"
 
 # Fetch HTML content, extract URLs matching the pattern, and download each file
-curl -s "$url" | grep -o 'href="[^"]*'"${pattern}"'"' | sed 's/href="//' | sed 's/"$//' | xargs -I {} curl -O "$url"{}
-
-# Move downloaded files to the specified directory
-mv $pattern "$download_dir"
+curl -s "$url" | grep -o 'href="[^"]*'"${pattern}"'"' | sed 's/href="//' | sed 's/"$//' | while read -r file; do
+  # Download each file
+  curl -O "$url$file"
+  # Move the downloaded file to the specified directory
+  mv "$(basename "$file")" "$download_dir"
+done
 
 echo "Download completed."
