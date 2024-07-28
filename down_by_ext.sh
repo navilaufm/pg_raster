@@ -38,17 +38,19 @@ for file in $files; do
     dbpassword="rastersUniversal$%1"
     srid=4326
 
-  # Check if filename matches the pattern
-  if [[ "$filename" == $pattern ]]; then
-    wget -q "$url$file" -P "$download_dir"
-    echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
-
     # Export the password to avoid password prompt
     export PGPASSWORD="$dbpassword"
     ## delete older of same value
      psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport" -c "
       delete from raster_data where load_datetime<=now() and filename like '$variable%';
     "
+
+  # Check if filename matches the pattern
+  if [[ "$filename" == $pattern ]]; then
+    wget -q "$url$file" -P "$download_dir"
+    echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
+
+    
 
 # Insert the raster into the database with additional columns
 ##set -x
