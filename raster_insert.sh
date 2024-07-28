@@ -9,6 +9,7 @@ file_pattern="temp_*.tif"  # Replace with desired pattern
 mkdir -p "$download_dir"
 
 html=$(curl "$url")
+echo $html
 
 files=$(echo "$html" | grep -oE "href=\"/$file_pattern\"" | cut -d'/' -f4)
 
