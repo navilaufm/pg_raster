@@ -26,7 +26,7 @@ for file in $files; do
   filename=$(basename "$file")
   
   variable=$(echo "$filename" | cut -d'_' -f1)
-  date=$(echo "$filename" | cut -d'_' -f2 | sed 's/\([0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\)/\1-\2-\3/')
+  date=$(echo "$filename" | cut -d'_' -f2 )
 
   
   # Check if filename matches the pattern
