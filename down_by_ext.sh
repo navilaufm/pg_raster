@@ -34,7 +34,7 @@ for file in $files; do
   dbname="rasters"
 dbuser="rasters"
 dbport="11014"
-dbpassword="rastersUniversal$%1"
+dbpassword="rastersUniversal\$%1"
 srid=4326
 
   # Check if filename matches the pattern
