@@ -1,6 +1,6 @@
 echo $0
 cd "$(dirname "$0")"
-echo $(date)
+echo $(date)qq
 
 ##wrf
 bash down_by_ext.sh https://m.meteo.tech/w/ tif AFWA_CLOUD* /root/projects/pg_raster/down CLOUD
