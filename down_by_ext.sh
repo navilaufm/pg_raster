@@ -52,10 +52,10 @@ for file in $files; do
   ##hora=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
   
   # Para obtener YYMMDD
-  fecha=${filename: -11:6}
+  fecha=${filename: -13:6}
 
   # Para obtener HH
-  hora=${filename: -2}
+  hora=${filename: -6:2}
   
   date_formatted="$fecha $hora"
   
