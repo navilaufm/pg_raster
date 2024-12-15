@@ -53,11 +53,13 @@ for file in $files; do
   
   # Para obtener YYMMDD
   fecha=${filename: -13:6}
+  fecha_formateada=$(echo $fecha | sed -r 's/(..)(..)(..)/\1-\2-\3/')
+
 
   # Para obtener HH
   hora=${filename: -6:2}
   
-  date_formatted="$fecha $hora"
+  date_formatted="$fecha_formateada $hora"
   
  
 
