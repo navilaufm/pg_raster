@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Start: $(date)"
 # Define the base URL
 base_url="https://m.meteo.tech/w/"
 
@@ -34,4 +33,3 @@ file_prefixes=(
 parallel --no-notice bash down_by_ext.sh {base_url} {file_ext} {} ${output_dir} ::: "${file_prefixes[@]}"
 
 echo "All downloads finished!"
-echo "Finished: $(date)"
