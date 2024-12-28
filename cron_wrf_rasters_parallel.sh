@@ -1,27 +1,37 @@
 #!/bin/bash
 
-echo $0
-cd "$(dirname "$0")"
-echo "INICIO $(date -u +'%a %d %b %Y %I:%M:%S %p %Z')"
+echo "Start: $(date)"
+# Define the base URL
+base_url="https://m.meteo.tech/w/"
 
-# Function to download files (optional, but makes the script cleaner)
-download_files() {
-    local url=$1
-    local ext=$2
-    local pattern=$3
-    local dest=$4
-    local new_name=$5
-    bash down_by_ext.sh "$url" "$ext" "$pattern" "$dest" "$new_name"
-}
+# Define the file extension
+file_ext="tif"
 
-export -f download_files  # Export the function for parallel to use
+# Define the output directory
+output_dir="/root/projects/pg_raster/down"
 
-# Use GNU parallel to download files in parallel
-parallel download_files \
-    ::: 'https://m.meteo.tech/w/' \
-    ::: tif \
-    ::: 'AFWA_CLOUD*' 'AFWA_PWAT*' 'AFWA_TOTPRECIP*' 'CLDFRA*' 'REFD_MAX*' 'T2*' 'TSK*' 'WDIR10*' 'WSPD10*' 'WSPD10MAX*' 'VIS*' 'HR2*' 'RAINC*' 'RAINNC*' 'RAINP*' 'RAINTOT*' \
-    ::: /root/projects/pg_raster/down \
-    ::: CLOUD PWAT TOTPRECIP CLDFRA REFDMAX T2 TSK WDIR10 WSPD10 WSPD10MAX VIS HR2 RAINC RAINNC RAINP RAINTOT
+# Define an array of file prefixes to download
+file_prefixes=(
+  "AFWA_CLOUD"
+  "AFWA_PWAT"
+  "AFWA_TOTPRECIP"
+  "CLDFRA"
+  "REFD_MAX"
+  "T2"
+  "TSK"
+  "WDIR10"
+  "WSPD10"
+  "WSPD10MAX"
+  "VIS"
+  "HR2"
+  "RAINC"
+  "RAINNC"
+  "RAINP"
+  "RAINTOT"
+)
 
-echo "FIN $(date -u +'%a %d %b %Y %I:%M:%S %p %Z')"
+# Use GNU parallel to download files concurrently
+parallel --no-notice bash down_by_ext.sh {base_url} {file_ext} {} ${output_dir} ::: "${file_prefixes[@]}"
+
+echo "All downloads finished!"
+echo "Finished: $(date)"
