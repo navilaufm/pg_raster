@@ -20,3 +20,5 @@ bash down_by_ext.sh https://m.meteo.tech/w/ tif HR2* /root/projects/pg_raster/do
 ## lluvias 241227
 bash down_by_ext.sh https://m.meteo.tech/w/ tif RAINC* /root/projects/pg_raster/down RAINC
 bash down_by_ext.sh https://m.meteo.tech/w/ tif RAINNC* /root/projects/pg_raster/down RAINNC
+bash down_by_ext.sh https://m.meteo.tech/w/ tif RAINP* /root/projects/pg_raster/down RAINP
+bash down_by_ext.sh https://m.meteo.tech/w/ tif RAINTOT* /root/projects/pg_raster/down RAINTOT
