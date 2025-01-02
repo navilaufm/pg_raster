@@ -16,7 +16,7 @@ bash down_by_ext.sh https://m.meteo.tech/w/ tif WSPD10* /root/projects/pg_raster
 bash down_by_ext.sh https://m.meteo.tech/w/ tif WSPD10MAX* /root/projects/pg_raster/down WSPD10MAX
 ##agregados para visibilidad y fog
 bash down_by_ext.sh https://m.meteo.tech/w/ tif VIS* /root/projects/pg_raster/down VIS
-bash down_by_ext.sh https://m.meteo.tech/w/ tif HR2* /root/projects/pg_raster/down RH2
+bash down_by_ext.sh https://m.meteo.tech/w/ tif RH2* /root/projects/pg_raster/down RH2
 ## lluvias 241227
 bash down_by_ext.sh https://m.meteo.tech/w/ tif RAINC* /root/projects/pg_raster/down RAINC
 bash down_by_ext.sh https://m.meteo.tech/w/ tif RAINNC* /root/projects/pg_raster/down RAINNC
