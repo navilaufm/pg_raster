@@ -74,7 +74,6 @@ for file in $files; do
 # Insert the raster into the database with additional columns
 ##set -x
 ### check align raster2pgsql -s 4326 -a "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport"
-### remove tiling raster2pgsql -s 4326 -C -t auto -a "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport"
 raster2pgsql -s 4326 -C -a "$download_dir/$filename" raster_data | psql -h "$dbhost" -U "$dbuser" -d "$dbname" -p "$dbport"
 
 
