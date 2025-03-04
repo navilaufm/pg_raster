@@ -8,3 +8,5 @@ bash down_by_ext.sh https://cc1.meteo.tech/data/icon/ tif a_pcpn* /root/projects
 bash down_by_ext.sh https://cc1.meteo.tech/data/icon/ tif wspd* /root/projects/pg_raster/down WSPD
 bash down_by_ext.sh https://cc1.meteo.tech/data/icon/ tif max_temp* /root/projects/pg_raster/down TMAX
 bash down_by_ext.sh https://cc1.meteo.tech/data/icon/ tif min_temp* /root/projects/pg_raster/down TMIN
+bash down_by_ext.sh https://cc1.meteo.tech/data/icon/ tif max_wspd* /root/projects/pg_raster/down WMAX
+ 
