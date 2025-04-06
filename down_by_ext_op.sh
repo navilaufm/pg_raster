@@ -28,8 +28,6 @@ if is_url "$source"; then
   # Extract file URLs matching the extension
   files=$(echo "$html" | grep -o 'href="[^"]*'"$extension"'"' | sed 's/href="//' | sed 's/"$//')
   source_type="url"
-  echo $files
-  exit 0
 else
   # Check if local folder exists
   if [ ! -d "$source" ]; then

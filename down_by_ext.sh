@@ -22,10 +22,19 @@ html=$(curl -s "$url")
 # Extract file URLs matching the extension
 files=$(echo "$html" | grep -o 'href="[^"]*'"$extension"'"' | sed 's/href="//' | sed 's/"$//')
 
-# Check if any files match the pattern
+# If no files are found in HTML, try to fetch uploaded_files.txt
 if [ -z "$files" ]; then
-  echo "No files found matching the pattern: $pattern.  Exiting..."
-  exit 0
+  temp_file="/tmp/uploaded_files_temp_$$.txt"
+  curl -s "$url/uploaded_files.txt" -o "$temp_file" 2>/dev/null
+  if [ -s "$temp_file" ]; then
+    # Read filenames from uploaded_files.txt, extracting just the basename
+    files=$(cat "$temp_file" | while read -r line; do basename "$line"; done)
+    echo "Using file list from $url/uploaded_files.txt"
+  else
+    echo "Warning: No files found in HTML and uploaded_files.txt not available at $url"
+  fi
+  # Clean up temporary file
+  rm -f "$temp_file"
 fi
 
  #postgis 
