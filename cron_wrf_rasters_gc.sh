@@ -1,6 +1,8 @@
 echo $0
 cd "$(dirname "$0")"
-echo $(date)qq
+
+echo "Upload postgreSQL start $(date)"
+START_TIME=$(date +%s) 
 
 ##wrf cybergeek
 
@@ -29,4 +31,7 @@ bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif WDIR1
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif WSPD10* /root/projects/pg_raster/down WSPD10
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif WSPD10MAX* /root/projects/pg_raster/down WSPD10MAX
 
+END_TIME=$(date +%s)
+ELAPSED_TIME=$((END_TIME - START_TIME))
+echo "Elapsed time upload postgreSQL: {$0} $((ELAPSED_TIME / 3600)) hours, $(( (ELAPSED_TIME % 3600) / 60 )) minutes, $((ELAPSED_TIME % 60)) secs"
 
