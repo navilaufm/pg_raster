@@ -9,7 +9,7 @@ bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif RAINN
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif RAINP* /root/projects/pg_raster/down RAINP
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif RAINTOT* /root/projects/pg_raster/down RAINTOT
 
-bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif T2* /root/projects/pg_raster/down T2
+bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif T2_* /root/projects/pg_raster/down T2
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif T2MIN* /root/projects/pg_raster/down T2MIN
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif T2MAX* /root/projects/pg_raster/down T2MAX
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif RH2* /root/projects/pg_raster/down RH2
