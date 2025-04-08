@@ -24,8 +24,8 @@ files=$(echo "$html" | grep -o 'href="[^"]*'"$extension"'"' | sed 's/href="//' |
 
 # If no files are found in HTML, try to fetch uploaded_files.txt
 if [ -z "$files" ]; then
-  temp_file="/tmp/uploaded_files_temp_$$.txt"
-  curl -s "$url/uploaded_files.txt" -o "$temp_file" 2>/dev/null
+  temp_file="down/uploaded_files_temp_$$.txt"
+  curl -s "$url/uploaded_files.txt?nocache=$(date +%s)" -o "$temp_file" 2>/dev/null
   if [ -s "$temp_file" ]; then
     # Read filenames from uploaded_files.txt, extracting just the basename
     files=$(cat "$temp_file" | while read -r line; do basename "$line"; done)
@@ -33,8 +33,7 @@ if [ -z "$files" ]; then
   else
     echo "Warning: No files found in HTML and uploaded_files.txt not available at $url"
   fi
-  # Clean up temporary file
-  rm -f "$temp_file"
+ 
 fi
 
  #postgis 
