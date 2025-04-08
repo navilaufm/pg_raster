@@ -27,6 +27,8 @@ bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif AFWA_
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif XLAND* /root/projects/pg_raster/down LAND
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif LANDMASK* /root/projects/pg_raster/down LANDMASK
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif HGT* /root/projects/pg_raster/down HGT
+bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif XLAT* /root/projects/pg_raster/down LAT
+bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif XLOG* /root/projects/pg_raster/down LON
 
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif REFD* /root/projects/pg_raster/down REFD
 bash down_by_ext.sh https://storage.googleapis.com/meteotech/data/wrf/ tif REFD_COM* /root/projects/pg_raster/down REFDCOM
