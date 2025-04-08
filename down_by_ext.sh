@@ -73,6 +73,7 @@ for file in $files; do
 
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
+    echo "Downloading ....$url$file to download directory ...$download_dir" 
     wget -q "$url$file" -P "$download_dir"
     echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
 
