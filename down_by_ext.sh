@@ -75,7 +75,11 @@ for file in $files; do
   # Check if filename matches the pattern
   if [[ "$filename" == $pattern ]]; then
     echo "Downloading ....$url$file to download directory ...$download_dir" 
+    
+    # Delete existing files to ensure overwrite
+    rm -f "$download_dir/$filename" "$download_dir/$filename".[0-9]*
     wget -q "$url$file" -P "$download_dir"
+
     echo "Downloaded: $download_dir/$filename  Variable: $variable Fecha: $fecha Hora: $hora"
 
     # Export the password to avoid password prompt
